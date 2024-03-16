@@ -5,8 +5,7 @@ result = [-1]*n
 for i in range(n):
     while stack:
         if num_list[stack[-1]] < num_list[i]:
-            index = stack.pop()
-            result[index] = num_list[i]
+            result[stack.pop()] = num_list[i]
         else:
             stack.append(i)
             break

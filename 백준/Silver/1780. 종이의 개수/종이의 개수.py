@@ -4,12 +4,7 @@ input = sys.stdin.readline
 def same_paper(list, x, y, n):
     last_paper = list[x][y]
     if n == 1:
-        if list[x][y] == -1:
-            result[0] += 1
-        elif list[x][y] == 0:
-            result[1] += 1
-        elif list[x][y] == 1:
-            result[2] += 1
+        result[list[x][y]] += 1
         return
     different = 0
     for j in range(x-(n-1), x+1):
@@ -21,15 +16,10 @@ def same_paper(list, x, y, n):
             for k in range(0, n, n // 3):
                 same_paper(list, x - j, y - k, n//3)
     else:
-        if last_paper == -1:
-            result[0] += 1
-        elif last_paper == 0:
-            result[1] += 1
-        elif last_paper == 1:
-            result[2] += 1
+        result[last_paper] += 1
 
 
-result = [0, 0, 0]
+result = {-1: 0, 0:0, 1:0}
 paper = []
 
 n = int(input())
@@ -37,6 +27,6 @@ for i in range(n):
     paper.append(list(map(int, input().split())))
 
 same_paper(paper, n-1, n-1, n)
+print(result[-1])
 print(result[0])
 print(result[1])
-print(result[2])

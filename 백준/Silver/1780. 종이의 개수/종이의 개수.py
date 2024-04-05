@@ -19,9 +19,7 @@ def same_paper(list, x, y, n):
     if different > 0:
         for j in range(0, n, n // 3):
             for k in range(0, n, n // 3):
-                nx = x - j
-                ny = y - k
-                same_paper(list, nx, ny, n//3)
+                same_paper(list, x - j, y - k, n//3)
     else:
         if last_paper == -1:
             result[0] += 1

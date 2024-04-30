@@ -7,20 +7,14 @@ const input = fs
   .map((line) => line.replace("\r", ""));
 
 T = input[0];
-
-const sum_dp = (n) => {
-  const dp = Array.from({ length: n + 1 }, () => 0);
-  dp[1] = 1;
-  dp[2] = 2;
-  dp[3] = 4;
-  for (let i = 4; i <= n; i++) {
-    dp[i] += dp[i - 1];
-    dp[i] += dp[i - 2];
-    dp[i] += dp[i - 3];
-  }
-  console.log(dp[n]);
-};
+const dp = Array.from({ length: 11 }, () => 0);
+dp[1] = 1;
+dp[2] = 2;
+dp[3] = 4;
+for (let i = 4; i <= 10; i++) {
+  dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+}
 
 input.slice(1).forEach((elem) => {
-  sum_dp(elem);
+  console.log(dp[elem]);
 });

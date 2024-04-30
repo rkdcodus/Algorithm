@@ -10,22 +10,10 @@ T = input[0];
 
 const sum_dp = (n) => {
   const dp = Array.from({ length: n + 1 }, () => 0);
-  for (let i = 1; i <= n; i++) {
-    if (i === 1) {
-      dp[i]++;
-      continue;
-    }
-    if (i === 2) {
-      dp[i] += dp[i - 1];
-      dp[i]++;
-      continue;
-    }
-    if (i === 3) {
-      dp[i] += dp[i - 1];
-      dp[i] += dp[i - 2];
-      dp[i]++;
-      continue;
-    }
+  dp[1] = 1;
+  dp[2] = 2;
+  dp[3] = 4;
+  for (let i = 4; i <= n; i++) {
     dp[i] += dp[i - 1];
     dp[i] += dp[i - 2];
     dp[i] += dp[i - 3];

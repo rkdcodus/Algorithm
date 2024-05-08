@@ -10,12 +10,13 @@ const input = require("fs")
   .split("\n")
   .map(Number);
 
-const sorted = input.slice(1).sort((a, b) => b - a);
+const [n, ...arr] = input;
 
+arr.sort((a, b) => b - a);
 let max = 0;
 
-sorted.map((w, k) => {
-  if (max <= w * (k + 1)) max = w * (k + 1);
+arr.map((w, k) => {
+  max = Math.max(max, w * (k + 1));
 });
 
 console.log(max);

@@ -4,24 +4,25 @@ const input = require("fs")
   .trim()
   .split("\n")
   .map((el) => el.split(" ").map(Number));
-
 const [n, m] = input[0];
-const G = Array.from({ length: n + 1 }, () => Array.from({ length: n + 1 }, () => 0));
-const V = Array.from({ length: n + 1 }, () => 0);
-let CC = 0;
+const G = Array.from({ length: n + 1 }, () => Array.from({ length: n + 1 }, () => 0)); // 무방향 그래프 배열
+const V = Array.from({ length: n + 1 }, () => 0); // Visited
+let result = 0;
 
 input.slice(1).map((v) => {
   G[v[0]][v[1]] = 1;
   G[v[1]][v[0]] = 1;
 });
 
-const bfs = (q) => {
-  while (q.length > 0) {
-    const v = q.shift();
+const bfs = (notVisited) => {
+  let q = [notVisited];
 
+  while (q.length) {
+    const v = q.shift();
     V[v] = 1;
+
     G[v].map((value, idx) => {
-      if (value === 1 && V[idx] === 0) {
+      if (value && !V[idx]) {
         V[idx] = 1;
         q.push(idx);
       }
@@ -30,14 +31,10 @@ const bfs = (q) => {
 };
 
 for (let i = 1; i <= n; i++) {
-  let q = [];
   if (!V[i]) {
-    q.push(i);
-  }
-  if (q.length > 0) {
-    bfs(q);
-    CC += 1;
+    bfs(i);
+    result += 1;
   }
 }
 
-console.log(CC);
+console.log(result);

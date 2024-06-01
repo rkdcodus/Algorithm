@@ -35,7 +35,7 @@ class MinHeap {
   }
 
   pop() {
-    if (this.heap.length === 0) return null;
+    if (this.heap.length === 0) return 0;
     if (this.heap.length === 1) return this.heap.pop();
 
     const root = this.heap[0];
@@ -74,27 +74,22 @@ const input = require("fs")
   .split("\n")
   .map((el) => el.split(" ").map(Number));
 
-const [n, ...testcases] = input;
 const answer = [];
-
-for (let i = 0; i < n; i++) {
+input.slice(1).map((row, idx) => {
   const minHeap = new MinHeap();
   let totalcost = 0;
-  const fileSizes = testcases[i * 2 + 1];
-
-  fileSizes.forEach((size) => {
-    minHeap.push(size);
-  });
-
+  if (idx % 2 === 1) {
+    row.forEach((size) => {
+      minHeap.push(size);
+    });
+  }
   while (minHeap.size() > 1) {
     const file1 = minHeap.pop();
     const file2 = minHeap.pop();
-    const fileSize = file1 + file2;
-    totalcost += fileSize;
-    minHeap.push(fileSize);
+    totalcost += file1 + file2;
+    minHeap.push(file1 + file2);
   }
-
-  answer.push(totalcost);
-}
+  totalcost ? answer.push(totalcost) : null;
+});
 
 console.log(answer.join("\n"));

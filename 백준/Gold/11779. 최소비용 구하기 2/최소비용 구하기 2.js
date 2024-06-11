@@ -94,40 +94,39 @@ const [start, end] = input.slice(-1)[0];
 
 const dijkstra = (start, end) => {
   const minHeap = new MinHeap();
-  const costs = Array(n + 1).fill(Infinity);
-  const routes = Array(n + 1).fill(null);
+  const distances = Array(n + 1).fill(Infinity);
+  const route = Array(n + 1).fill(null);
   minHeap.push([0, start]);
-  costs[start] = 0;
+  distances[start] = 0;
 
   while (!minHeap.isEmpty()) {
     const [totalcost, node] = minHeap.pop();
 
-    if (costs[node] < totalcost) continue;
+    if (distances[node] < totalcost) continue;
 
     for (let [next, cost] of graph[node]) {
-      const newCost = totalcost + cost;
+      const distance = totalcost + cost;
 
-      if (costs[next] > newCost) {
-        routes[next] = node;
-        costs[next] = newCost;
-        minHeap.push([newCost, next]);
+      if (distances[next] > distance) {
+        minHeap.push([distance, next]);
+        route[next] = node;
+        distances[next] = distance;
       }
     }
   }
 
-  return { cost: costs[end], route: routes };
+  return { distance: distances[end], route: route };
 };
 
-const { cost, route } = dijkstra(start, end);
-
+const { distance, route } = dijkstra(start, end);
 const answerRoute = [];
 let node = end;
+
 while (node !== null) {
   answerRoute.push(node);
   node = route[node];
 }
-answerRoute.reverse();
 
-console.log(cost);
+console.log(distance);
 console.log(answerRoute.length);
-console.log(answerRoute.join(" "));
+console.log(answerRoute.reverse().join(" "));

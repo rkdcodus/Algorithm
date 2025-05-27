@@ -1,13 +1,17 @@
 function solution(nums) {
-    const map = new Map();
+    const max = nums.length / 2;
+    const set = new Set(nums)
     
-    nums.forEach(num => {
-        map.set(num, (map.get(num) || 0) + 1);
-    })
+    return max < set.size ? max : set.size
+//     const map = new Map();
     
-    if(nums.length / 2 < map.size) {
-        return nums.length / 2
-    }
+//     nums.forEach(num => {
+//         map.set(num, (map.get(num) || 0) + 1);
+//     })
     
-    return map.size;
+//     if(nums.length / 2 < map.size) {
+//         return nums.length / 2
+//     }
+    
+//     return map.size;
 }
